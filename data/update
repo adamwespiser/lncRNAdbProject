@@ -1,0 +1,17 @@
+#Reconstructs database from information from TransData.tab, GeneData.tab and PCA.tab
+
+#Clear old tables
+sqlite3 lncRNA.db < update_files/clear.sql
+echo Old tables dropped.
+
+#Make SQLITE instructions for new tables
+echo Creating new tables.
+python update_files/toSQL.py
+echo New tables made.
+
+#Feed instructions into database
+sqlite3 lncRNA.db < update_files/GeneData.sql
+sqlite3 lncRNA.db < update_files/TransData.sql
+sqlite3 lncRNA.db < update_files/PCAData.sql
+echo New tables added.
+echo Update complete.

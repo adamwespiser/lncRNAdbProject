@@ -1,0 +1,32 @@
+<html>
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js">
+</script>
+<script = "text/javascript">
+$(document).ready(function() {
+	$("#Button").click(function() {
+		$("#Data").html("WOOOOOOOO");
+		setTimeout(function() {
+		$.ajax({
+			type: 'POST',
+			url: 'test.php',
+			data: 'id=testdata',
+			cache: false,
+			success: function(result) {
+				var arr = JSON.parse(result);
+				$('#Data').html('');
+				for(i in arr) $('#Data').append(arr[i]);
+			},
+			error: function() {
+				alert("FAILURE");
+			}
+		});}, 1000);
+	});
+});
+</script>
+</head>
+<body>
+<a id = "Button">Click Me</a>
+<p id = "Data">Meow</p>
+</body>
+</html>

@@ -1,0 +1,25 @@
+PHP Files
+
+The php files have the following functions:
+
+database.php
+------------
+Contains a class for easy database access, along with a few global arrays:
+
+	class lncRNA_DB - has two functions, getAll($sql) and getAllOrganized($sql) which both take a search query. getAll returns the results of the search in a basic array, with an element for each row, which getAllOrganized returns transcript data for data.php in an associative array with a set schema, more information in the file
+	function sanitizeInput($input) - makes sure any input from search fields aren't malicious
+	function removeComma($value) - returns the value without commas, used for coordinate search input
+	array cellTypes - an array of all cell types in the data.php graph
+	array entropyType - an array of the types of entropy expression for the data.php graph
+
+save.php
+--------
+Contains a simple interface to save and restore the user's location in search results. Uses a session to store a variable to be used by results.php when the "Back to Search" link is clicked on the data.php page.
+
+search.php
+----------
+The server-end of the search.html main page. Used for either of the following:
+	
+	To list autocomplete options for geneID searches
+	To change the data displayed on the PCA Data chart
+

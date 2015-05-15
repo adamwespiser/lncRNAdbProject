@@ -1,0 +1,46 @@
+Umass Medical School Online Database Project
+
+The five main pages can be found in the current directory, they consist of the following:
+
+search.html
+-----------
+The default home page. 
+Consists of:
+	Welcome text box with general information
+	Main search box, which sends data to results.php upon submitting
+	Highchart PCA Data chart, with clickable points that send Client to corresponding data.php page
+	Box with selectors to change the PCA Data Chart's Components
+
+results.php
+-----------
+Search results page.
+Consists of:
+	Alternate search box, function exactly as one from search.html page
+	Search results summary text box, explaining search results
+	Search results table, displaying at most 20 search results at a time
+	Navigation panel, which helps navigate through results if longer than 20
+
+data.php
+--------
+Data summary page.
+Consists of:
+	Navigation panel for each section of data, which hide/show sections when clicked
+	Resources Section, which contains a table for links to other sites
+	Summary Statistics Section, which contains a table of Summary Statistics (gene coordinates, max expression type, three times rest, tissue specifity) for each transcript and a highcharts chart for entropy expression (entropy, variance, average, minimum, maximum) for each transcript
+	Transcript Data Section, which contains a panel for chart options (All-Turn on all transcripts, None-Turn off all transcripts, Max-toggle Max Data, and buttons to toggle each transcript) and a highcharts chart for transcript expression across cell type
+
+references.html (Work in progress)
+--------------
+Text page for references used in the project.
+Consists of:
+	Text box to hold all references
+
+about.html (Work in progress)
+----------
+Text page to explain the lncRNA database project
+Consists of:
+	Text box for lengthy explanation
+
+In addition, each page has the same header, footer, and navigation panel (except for data.php, which has an extra "Back to Search" button).
+
+Files and directories used in each page can be found in one of the local php, css, or js directories

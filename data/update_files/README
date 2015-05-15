@@ -1,0 +1,36 @@
+README for all available python files
+
+toSQL.py 
+Peter Baker 7.30.2013
+---------------------
+Uses the Gene_data.tab file to create the following tables
+
+GeneData:
+	Holds the gene expression across cell types, not currently used in any charts. Has the following schema:
+		geneID (text)
+		[HSSM.longNonPolyA - GM12878.longPolyA] (double)
+
+TransData:
+	Holds transcript expression across cell types, used in both the Entropy Expression and Transcript Expression charts on the data.php page. This table has the following schema:
+		
+		geneID (text)
+		transID (text)
+		chromosome (int)
+		low (int)
+		high (int)
+		[HSSM.longNonPolyA - GM12878.longPolyA] (double)
+		entropyExpr (double)
+		sumExpr (double)
+		varianceExpr (double)
+		minExpr (double)
+		maxExpr (double)
+		maxExprType (text)
+		threeTimesRest (text)
+		tissSpec (double) 
+	Note: Gene Coordinates are split into three parts: chromosome, low, high, for simplicity in searching.
+
+PCAData:
+	Holds all 32 component data for the PCA Data chart located on the main search.html page. This table has the following schema:
+		gene_id (text)
+		[Comp.1 - Comp.32] (double)
+

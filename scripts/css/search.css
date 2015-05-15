@@ -1,0 +1,123 @@
+div, p, h1, h2, h3
+{
+font-family: "Tahoma", Geneva, sans-serif;
+}
+
+#text
+{
+background: #B7B7B7;
+width: 750px;
+margin:auto;
+margin-top:25px;
+border: 2px solid #249092;
+font-size:1.2em;
+padding:5px 5px 5px 50px;
+}
+
+
+#geneChart
+{
+width:700px;
+height:700px;
+margin:auto;
+}
+
+#compPanel
+{
+width:250px;
+height:60px;
+margin:auto;
+margin-top:10px;
+background: #9DBCBC;
+border: 2px solid #006666;
+padding-left:10px;
+padding-top:5px;
+}
+
+#compPanel select
+{
+padding:3px;
+background:#f8f8f8;
+height:25px;
+font-size:0.7em;
+}
+
+#compPanel button
+{
+font-size:0.7em;
+margin-top:5px;
+margin-left:75px
+}
+
+label, input, fieldset, legend 
+{
+font-family: "Tahoma", Geneva, sans-serif;
+font-size:1.2em;
+}
+
+
+label
+{
+width: 500px;
+font-size:0.8em;
+display: block;
+margin-top:20px;
+margin-left:50px;
+clear:both;
+}
+
+input
+{
+color: #000;
+background: #FFEEBB;
+font-size:1.2em;
+width: 450px;
+border: 1px solid #249092;
+float:left;
+margin-left:50px;
+margin-top:15px;
+}
+
+.submit input
+{
+color: #fff;
+font-size:0.8em;
+background: #006666;
+border: 2px outset #429014;
+width: 100px;
+margin-left:45px;
+float: left;
+margin-top: -1px;
+}
+
+.coords input
+{
+width: 10em;
+margin: auto;
+}
+
+fieldset
+{
+border: 4px solid #6B6B6B;
+width: 750px;
+background:#B7B7B7;
+float:center;
+margin:auto;
+margin-top:50px;
+
+}
+
+legend
+{
+color: #fff;
+background: #006666;
+border: 1px solid #019721;
+padding: 2px 6px;
+}
+
+#explainButton
+{
+text-decoration:underline;
+font-size:0.6em;
+float:right;
+}

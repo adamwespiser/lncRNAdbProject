@@ -1,0 +1,232 @@
+<html>
+<title>Umassmed lncRNA</title>
+<head>
+<link rel="stylesheet" type="text/css" href="css/background.css">
+<link rel="stylesheet" type="text/css" href="css/search.css">
+
+<!--AJAX library-->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+
+<!--Autocomplete widget-->
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+<!--HighCharts Library-->
+<script src = "./js/highcharts/highcharts.js" type = "text/javascript"></script>
+<script src = "./js/highcharts/grid.js" type = "text/javascript"></script>
+<script>
+var geneChart;
+
+$(document).ready(function() {
+	init();
+});
+
+function init() {
+geneChart = new Highcharts.Chart({
+	chart: {
+		renderTo: 'geneChart',
+		type: 'scatter',
+		zoomType: 'xy'
+	},
+	title: {
+		text: 'PCA Data'
+	},
+	subtitle: {
+		text: 'Click and Drag to Zoom',
+	},
+	xAxis: {
+		title: {
+			text: "Comp.1"
+		},
+		startOnTick: true,
+		endOnTick: true,
+		minTickInterval: 0.00000002,
+	},
+	yAxis: {
+		title: {
+			text: "Comp.2"
+		},
+		startOnTick: true,
+		endOnTick: true,
+		minTickInterval: 0.000002,
+	},
+	legend: {
+		enabled: false,
+	},
+	navigator: {
+		adaptToUpdatedData: false
+	},
+		plotOptions: {
+	series: {
+			cursor: 'pointer',
+			point: {
+				events: {
+					click: function() { 
+						//Data points redirect on click
+						window.location = "http://bib.umassmed.edu/~wespisea/data.php?geneID=" + this.geneID;
+					}
+				}
+			},
+			turboThreshold: 10000,
+		}
+	},
+	series: [{name:"Comp.1 vs Comp.2"}],
+	tooltip: {
+		formatter: function(){return 'Gene ID: ' + this.point.geneID + '<br>' + geneChart.options.xAxis[0].title.text + ": " + this.point.x + '<br>' + geneChart.options.yAxis[0].title.text + ": " + this.point.y;}
+	},	
+});
+
+//Load chart with selector bar defaults
+//changeComps();
+geneChart.showLoading();
+
+$("#buttonPanel").click(function() {
+	$("#chartContainer").slideToggle("slow");
+});
+
+//Autocomplete for form geneID input
+$("#sKey").keyup(function() {
+	cur_val = $(this).val();
+	$.ajax({
+		type: 'POST',
+		url: 'php/search.php',
+		data: 'geneID=' + cur_val,
+		cache: false,
+		success: function(result) {
+			var arr = JSON.parse(result);
+			$("#sKey").autocomplete({ source: arr });
+		},
+		error: function() {
+		}
+	});
+});
+
+//Initial value for form coordinate input
+$("#coordsInput").focus(function() {
+	 if($(this).val() == 'chr:low-high') $(this).val('');
+})		.blur(function() {
+	if($(this).val() == '') $(this).val('chr:low-high');
+});
+
+}
+
+function changeComps() {
+	geneChart.showLoading();
+	
+	//Get selector values
+	var x = $("#xAxis").val();
+	var y = $("#yAxis").val();
+	//Change Chart Axes titles
+	geneChart.xAxis[0].axisTitle.attr({text: x});
+	geneChart.yAxis[0].axisTitle.attr({text: y});
+	//Send ajax request
+	$.ajax({
+		type: 'POST',
+		url: 'php/search.php',
+		data: 	{
+			x: x,
+			y: y
+			},
+		cache: false,
+		success: function(result) {
+			var data = JSON.parse(result);
+			//Remove old chart data and add updated data
+			geneChart.series[0].remove();
+			geneChart.hideLoading();
+			geneChart.addSeries({
+					data: data,
+					name: x + " vs " + y,
+					color: "#2F7ED8",
+					marker: {symbol: "circle",},
+					});
+		},
+		error: function() {
+			alert("FAILURE");
+		}
+	});
+}
+
+function createSelectors() {
+	//Create selector bars for chart axes
+	var xAxis = "X: <select id = 'xAxis'>";
+	var yAxis = "     Y: <select id = 'yAxis'>";
+	for (var i = 1; i < 33; i++) {
+		var comp = "Comp." + i;
+		xAxis += "<option value = '" + comp + "'>" + comp + "</option>";
+		//Default Y Axis is Comp.2
+		if (i == 2) {
+			yAxis += "<option value = '" + comp + "' selected = 'selected'>" + comp + "</option>";
+		}
+		else {
+			yAxis += "<option value = '" + comp + "'>" + comp + "</option>";
+		}
+	}
+	xAxis += "</select>";
+	yAxis += "</select>";
+
+	$("#axes").html(xAxis + yAxis);
+	$("#geneChart").slideToggle("fast");
+	
+	$("span", "#compButton").toggle();
+	$("#compButton").attr("onclick", "javascript:changeComps();");
+	$("#compButton").attr("title", "Changes the axes");
+	
+	changeComps();	
+}
+
+</script>
+</head>
+
+<body>
+<div id = "wrap">
+	<div id = "header">
+		<div id = "lnc">lncRNA</div>
+	</div>
+	<div id = "nav">
+                <div><a href="http://bib.umassmed.edu/~wespisea/search.html">Home</a></div>
+                <div><a href="http://bib.umassmed.edu/~wespisea/references.html">References</a></div>
+                <div><a href="http://bib.umassmed.edu/~wespisea/about.html">About</a></div>
+        </div>
+	<div id = "main">
+		<div id = "content">
+			<div id = "text">
+			<h2>Welcome to the UmassMed lncRNA database</h2>
+			<h3>Search</h3>
+			<p>Search the database by entering a term such as a Gene ID or Gene Coordinates in the search box below.</p>
+			<h3>Explore</h3>
+			<p>Search the database through the PCA Data chart below. After loading the chart, feel free to explore our database by zooming and clicking a Gene point to view its complete data.</p>
+			</div>
+		
+			<form action = "results.php" method = "post">
+			<fieldset>
+			<legend>Search</legend>
+			<div style = "margin-left:50px;">Please enter a Gene ID or Gene Coordinates:</div>
+			<input type="text" name="sKey" id = "sKey"></input>
+			<p class = "submit"><input type="submit"></p>
+			<label>
+				e.g.</br> 
+				ENSG00000004142</br> 
+				chr1:1-10,000,000
+			</label>
+			</fieldset>
+			</form>
+			
+			<fieldset>
+			<legend>PCA Data</legend>
+				<div id = "geneChart" style = "display: none;"></div>
+				<div id = "compPanel">
+					<div id = "axes">Click to load PCA Data Chart</div>
+					<button onclick = 'createSelectors()' id = "compButton">
+						<span>Load Chart</span>
+						<span style = "display:none">Select Axes</span>
+					</button>
+				</div>
+			</fieldset>
+		</div>
+	</div>
+	<div id = "footer">
+		@2013 ZLab
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,3 @@
+DROP TABLE GeneData;
+DROP TABLE TransData;
+DROP TABLE PCAData;

@@ -1,0 +1,71 @@
+#genes
+{
+font-family:"Tahoma",Geneva,sans-serif;
+width: 75%;
+/*
+height: 100%;
+*/
+border-collapse:collapse;border:1px solid #000000;
+margin:auto;
+}
+#genes td, #genes th
+{
+font-size: 1em;
+text-align:center;
+background-color:#EBFFEB;
+color:#000000;
+border: 2px solid #006666;
+padding: 5px 5px 5px 5px;
+}
+#genes th
+{
+font-size: 1.2em;
+text-align:center;
+background-color:#6B6B6B;
+color:#FFFFFF;
+}
+#genes tr.alt td
+{
+background-color:#B7B7B7;
+}
+#genes a {
+color: #000066;
+}
+#genes a.visited, #genes a.hover {
+color: #FFFFFF;
+}
+
+#table_nav
+{
+width: 10em;
+float:right;
+margin:auto;
+margin-right:12.5%;
+margin-top:0;
+margin-bottom:5em
+background:#142;
+}
+#table_nav button
+{ 
+background-image: -webkit-linear-gradient(top, rgba(107,107,107,1) 0%,rgba(153,150,153,1) 100%);
+background-image:    -moz-linear-gradient(top, rgba(107,107,107,1) 0%,rgba(153,150,153,1) 100%);
+background-image:     -ms-linear-gradient(top, rgba(107,107,107,1) 0%,rgba(153,150,153,1) 100%);
+background-image:      -o-linear-gradient(top, rgba(107,107,107,1) 0%,rgba(153,150,153,1) 100%);
+background-image:         linear-gradient(top, rgba(107,107,107,1) 0%,rgba(153,150,153,1) 100%);
+-webkit-box-shadow: 1px 1px 2px 0px rgba(0,0,0,1);
+   -moz-box-shadow: 1px 1px 2px 0px rgba(0,0,0,1);
+        box-shadow: 1px 1px 2px 0px rgba(0,0,0,1);
+width: 3em;
+display: inline-block;
+font-size: 1.5em
+text-align: center;
+color: rgba(0,0,0,1);
+border-radius: 0px;
+-webkit-border-radius: 0px;
+-moz-border-radius: 0px;
+color: #000000;
+width: 3em;
+margin:0;
+text-align:center;
+height:auto;
+}
